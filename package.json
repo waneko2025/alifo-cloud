@@ -1,0 +1,8 @@
+{
+  "name": "alifo-cloud",
+  "version": "1.0.0",
+  "description": "ALIFO Cloud v1.0 - simple web cloud storage",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "express": "^4.21.2", "multer": "^1.4.5-lts.1" }
+}
