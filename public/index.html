@@ -26,7 +26,7 @@
         <h1>マイファイル</h1>
         <div id="breadcrumb" class="breadcrumb">ホーム</div>
       </div>
-      <div class="actions">
+      <div class="actions"><span id="account" style="align-self:center;color:#68758a;font-size:13px"></span><button id="logout" class="secondary">ログアウト</button>
         <button id="newFolder" class="secondary">＋ 新しいフォルダ</button>
         <label class="primary">⬆ ファイルをアップロード
           <input id="fileInput" type="file" multiple hidden>
@@ -48,6 +48,6 @@
     <div id="empty" class="empty" hidden>このフォルダは空です</div>
   </main>
 </div>
-<script src="/app.js"></script>
+<script src="/app.js"></script><script>async function checkAuth(){const r=await fetch("/api/me");const d=await r.json();if(!d.loggedIn){location.href="/login.html";return}document.querySelector("#account").textContent=d.user.email;document.querySelector("#logout").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/login.html"}}checkAuth()</script>
 </body>
 </html>

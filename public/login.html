@@ -1,0 +1,9 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ALIFO Cloud - Login</title><link rel="stylesheet" href="/login.css"></head>
+<body><main><div class="logo">☁ ALIFO Cloud</div><section><div id="login"><h1>ログイン</h1><p>ALIFO Cloudへようこそ</p><input id="lemail" type="email" placeholder="メールアドレス"><input id="lpass" type="password" placeholder="パスワード"><button onclick="login()">ログイン</button><a onclick="show('register')">新規アカウントを作成</a></div>
+<div id="register" hidden><h1>アカウント作成</h1><p>無料でALIFO Cloudを始めます</p><input id="remail" type="email" placeholder="メールアドレス"><input id="rpass" type="password" placeholder="パスワード（6文字以上）"><button onclick="register()">アカウント作成</button><a onclick="show('login')">ログインへ戻る</a></div><div id="msg"></div></section></main>
+<script>
+function show(x){document.querySelector('#login').hidden=x!=='login';document.querySelector('#register').hidden=x!=='register';document.querySelector('#msg').textContent=''}
+async function call(url,data){let r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});let d=await r.json();if(!r.ok)throw Error(d.error||'エラー');return d}
+async function login(){try{await call('/api/login',{email:lemail.value,password:lpass.value});location.href='/'}catch(e){msg.textContent=e.message}}
+async function register(){try{await call('/api/register',{email:remail.value,password:rpass.value});await call('/api/login',{email:remail.value,password:rpass.value});location.href='/'}catch(e){msg.textContent=e.message}}
+</script></body></html>
